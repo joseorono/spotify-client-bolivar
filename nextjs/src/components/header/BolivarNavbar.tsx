@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export default function BolivarNavbar() {
   return (
-    <Navbar className="bg-green-500 text-white-500" isBordered>
+    <Navbar className="shadow-xl bg-green-500 text-white-500 " isBordered>
       <NavbarBrand>
         <BolivarLogo />
       </NavbarBrand>
