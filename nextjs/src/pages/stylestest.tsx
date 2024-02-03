@@ -13,12 +13,13 @@ import {Card, CardHeader, CardBody, CardFooter} from "@nextui-org/react";
 export default function StylesTest() {
     return (
     <>
-        <Head>
-            <title>Create T3 App</title>
-            <meta name="description" content="Un Cliente de Spotify" />
-            <link rel="icon" href="/favicon.ico" />
-        </Head>
-        <BodyWrapper>
+      <Head>
+        <title>{ "Prueba - Constructora Bolivar" }</title>
+        <meta name="description" content="Un Cliente de Spotify" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+
+        <BodyWrapper hasBackButton={true}>
             
             <Card>
                 <CardBody>

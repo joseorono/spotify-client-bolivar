@@ -7,16 +7,15 @@ export default function Home() {
     
     <>
       <Head>
-        <title>Create T3 App</title>
+        <title>{ "Spotify - Constructora Bolivar" }</title>
         <meta name="description" content="Un Cliente de Spotify" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <BodyWrapper>
+      <BodyWrapper hasBackButton={true}>
         <p>
-          Welcome to my App!
+          Pagina de Inicio
         </p>
       </BodyWrapper>
-      
     </>
   );
 }
