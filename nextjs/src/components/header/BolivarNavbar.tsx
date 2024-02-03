@@ -47,9 +47,9 @@ export default function BolivarNavbar() {
               <p className="font-semibold">Iniciado como</p>
               <p className="font-semibold">jose@example.com</p>
             </DropdownItem>
-            <DropdownItem key="perfil">Perfil (WIP)</DropdownItem>
+            <DropdownItem key="perfil" href="/perfil">Perfil (WIP)</DropdownItem>
             <DropdownItem key="logout" color="danger">
-              Log Out
+              Cerrar Sesión
             </DropdownItem>
           </DropdownMenu>
         </Dropdown>
