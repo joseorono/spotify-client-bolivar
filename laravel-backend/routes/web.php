@@ -20,14 +20,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/auth/redirect', function () {
-    return Socialite::driver('spotify')->redirect();
-});
- 
-Route::get('/spotify-callback', function () {
-    $user = Socialite::driver('spotify')->user();
- 
-    // $user->token
-});
-
 
