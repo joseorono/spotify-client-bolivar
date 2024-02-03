@@ -6,10 +6,11 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
-        "guzzlehttp/guzzle": "^7.2",
+        "aerni/laravel-spotify": "^2.1",
+        "guzzlehttp/guzzle": "^7.8",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
-        "laravel/socialite": "^5.11",
+        "laravel/socialite": "*",
         "laravel/tinker": "^2.8",
         "socialiteproviders/spotify": "^4.1",
         "socialiteproviders/zoho": "^4.1"
