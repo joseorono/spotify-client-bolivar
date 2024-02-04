@@ -4,7 +4,19 @@ import Head from "next/head";
 import Link from "next/link";
 
 import SearchForm from "~/components/search/SearchForm";
+import {
+  QueryClient,
+  QueryClientProvider
+} from '@tanstack/react-query'
 
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchIntervalInBackground: false,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 export default function Busqueda() {
   return (
@@ -19,7 +31,9 @@ export default function Busqueda() {
           Pagina de Busqueda
         </h1>
 
-        <SearchForm />
+        <QueryClientProvider client={queryClient}>
+          <SearchForm />
+        </QueryClientProvider>
 
       </BodyWrapper>
     </>

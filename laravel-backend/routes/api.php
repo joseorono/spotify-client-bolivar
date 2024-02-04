@@ -34,5 +34,5 @@ Route::get('/auth/redirect', [AuthController::class, 'redirectToProvider']);
 
 Route::get('/spotify-callback', [AuthController::class, 'handleProviderCallback']);
 
-Route::get('/search/tracks/', [SearchController::class, 'searchTracks']);
+Route::get('/search/track/', [SearchController::class, 'searchTracks']);
 

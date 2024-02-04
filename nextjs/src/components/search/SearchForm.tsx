@@ -10,13 +10,8 @@ import { Icon } from '@iconify/react';
 // Hooks / Libraries
 import { useDebounce } from "use-debounce";
 import { useState } from "react";
-
-type SearchTypes = 'artist' | 'album' | 'track';
-
-interface SearchTypeOptions {
-    label: string;
-    value: SearchTypes;
-}
+import { useQuery } from "@tanstack/react-query";
+import SearchResults from "./SearchResults";
 
 // Referencias:
 // Para use-debounce: https://www.npmjs.com/package/use-debounce
@@ -31,9 +26,18 @@ const SearchTypes: SearchTypeOptions[] = [
 export default function SearchForm() {
     const [inputValue, setInputValue] = useState("");
     const [debouncedValue] = useDebounce(inputValue, 500);
-    const [searchType, setSearchType] = useState< Set<SearchTypes> >( new Set(["track"]) );
+    const [searchType, setSearchType] = useState< Set<SpotifySearchTypes> >( new Set(["track"]) );
   
     // process.env.NEXT_PUBLIC_API_ROOT
+
+    const getSearchURL = (): string => {
+
+        const url = `${process.env.NEXT_PUBLIC_API_ROOT}/search/${Array.from(searchType)[0]}?query=${
+            encodeURIComponent(debouncedValue).trim()
+        }`;
+        console.log("URL: " + url);
+        return url;
+    }
 
     const handleInputChange = ( e: React.ChangeEvent<HTMLInputElement> ) => {
       const value = e.target.value;
@@ -45,12 +49,21 @@ export default function SearchForm() {
 
     // https://stackoverflow.com/questions/77068657/nextui-select-component-onchange-option
     const handleSelectionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setSearchType(new Set([e.target?.value as SearchTypes]));
-        console.log("Selected City", Array.from(searchType));
+        setSearchType(new Set([e.target?.value as SpotifySearchTypes]));
+        console.log("Selected Category:", Array.from(searchType));
 
         // Quizas deba usar useMemo 
         // Usar Array.from() para convertir set en array
     };
+
+    const { isPending, isSuccess, error, data } = useQuery({
+        queryKey: ['spotifySearch'],
+        queryFn: () =>
+          fetch( getSearchURL() ).then((res) =>
+            res.json(),
+          ),
+        enabled: debouncedValue.length > 0,
+      })
 
 
   return (
@@ -69,7 +82,7 @@ export default function SearchForm() {
             label="Tipo de Búsqueda"
             placeholder="Selecciona una categoría"
             startContent={<Icon icon="mdi:music-note-quarter" className="text-xl text-black-400" />}
-            defaultSelectedKeys={["track"] satisfies SearchTypes[] }
+            defaultSelectedKeys={["track"] satisfies SpotifySearchTypes[] }
             //defaultSelectedKeys={searchType}
             onChange={handleSelectionChange}
             className="max-w-xs"
@@ -80,6 +93,20 @@ export default function SearchForm() {
                     </SelectItem>
                 ))}
             </Select>
+        </div>
+        
+        <div className="p-4">
+            <div className="text-center italic text-black-300">
+                {isPending ? "Buscando..." : ""}
+                {error && (<><span className="px-2 py-10">Error obteniendo los resultados.</span></>)}
+            </div>
+
+
+            {
+                isSuccess && 
+                (<SearchResults type={searchType.values().next().value} data={data} />)
+            }
+            
         </div>
         
 
