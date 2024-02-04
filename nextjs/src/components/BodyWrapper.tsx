@@ -20,15 +20,16 @@ import Footer from "./Footer";
 interface BodyWrapperProps {
   hasBackButton: boolean;
   children: ReactNode;
+  containerClasses?: string;
 }
 
-const BodyWrapper = ({children, hasBackButton = false} : BodyWrapperProps) => {
+const BodyWrapper = ({children, hasBackButton = false, containerClasses = ""} : BodyWrapperProps) => {
   return (
     <main className="light flex flex-col min-h-svh">
 
       <BolivarNavbar />
       
-      <BsCenteredContainer extraClasses="flex-1 my-8">
+      <BsCenteredContainer extraClasses={"flex-1 my-8 " + containerClasses }>
 
         {
           hasBackButton && (

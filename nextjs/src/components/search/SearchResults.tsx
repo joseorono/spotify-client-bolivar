@@ -34,7 +34,7 @@ const SearchResults = ({type, data} : SearchResultsProps) => {
     </div>
     <div>
         <p>
-            { hasData? JSON.stringify(data) : "No se envió data" }
+            { JSON.stringify(data) }
         </p>
     </div>
     </>
