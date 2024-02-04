@@ -1,20 +1,14 @@
-
+'use client'
 import { ReactNode } from "react";
 
 import {
-  Navbar, 
-  NavbarBrand, 
-  NavbarContent, 
-  NavbarItem, 
-  NavbarMenuToggle,
-  NavbarMenu,
-  NavbarMenuItem,
-  Button
+  Snippet
 } from "@nextui-org/react";
 
 
 import { Icon } from '@iconify/react';
 import Link from "next/link";
+import ErrorNotice from "../ErrorNotice";
 
 
 interface SearchResultsProps {
@@ -24,6 +18,13 @@ interface SearchResultsProps {
 
 const SearchResults = ({type, data} : SearchResultsProps) => {
     const hasData = data ? true : false;
+
+    if (!hasData) {
+        return (
+            <ErrorNotice message="No se encontraron resultados" />
+        );
+    }
+
     return (
     <>
     <div>

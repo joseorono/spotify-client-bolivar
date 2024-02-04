@@ -3,7 +3,7 @@
 
 // Components
 import Link from "next/link";
-import {Select, SelectItem} from "@nextui-org/react";
+import {Select, SelectItem, Spinner} from "@nextui-org/react";
 import { Input, Button } from '@nextui-org/react';
 import { Icon } from '@iconify/react';
 
@@ -12,6 +12,7 @@ import { useDebounce } from "use-debounce";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import SearchResults from "./SearchResults";
+import ErrorNotice from "../ErrorNotice";
 
 // Referencias:
 // Para use-debounce: https://www.npmjs.com/package/use-debounce
@@ -28,6 +29,8 @@ export default function SearchForm() {
     const [debouncedValue] = useDebounce(inputValue, 500);
     const [searchType, setSearchType] = useState< Set<SpotifySearchTypes> >( new Set(["track"]) );
   
+    let isNotEmptyQuery = (debouncedValue.length > 0) && (searchType.size > 0);
+
     // process.env.NEXT_PUBLIC_API_ROOT
 
     const getSearchURL = (): string => {
@@ -52,18 +55,18 @@ export default function SearchForm() {
         setSearchType(new Set([e.target?.value as SpotifySearchTypes]));
         console.log("Selected Category:", Array.from(searchType));
 
-        // Quizas deba usar useMemo 
+        // Quizas deba usar useMemo en el futuro
         // Usar Array.from() para convertir set en array
     };
 
     const { isPending, isSuccess, error, data } = useQuery({
-        queryKey: ['spotifySearch'],
+        queryKey: ['spotifySearch', Array.from(searchType)[0], searchType],
         queryFn: () =>
           fetch( getSearchURL() ).then((res) =>
             res.json(),
           ),
-        enabled: debouncedValue.length > 0,
-      })
+        enabled: isNotEmptyQuery,
+    });
 
 
   return (
@@ -97,10 +100,10 @@ export default function SearchForm() {
         
         <div className="p-4">
             <div className="text-center italic text-black-300">
-                {isPending ? "Buscando..." : ""}
-                {error && (<><span className="px-2 py-10">Error obteniendo los resultados.</span></>)}
+                { (isPending && isNotEmptyQuery) ? <Spinner size="lg" /> : ""}
+                { (isPending && !isNotEmptyQuery) ? "¿Qué te gustaría escuchar hoy?" : ""}
+                {error && (<><ErrorNotice message="Falla en la solicitud a la base de datos." /></>)}
             </div>
-
 
             {
                 isSuccess && 
