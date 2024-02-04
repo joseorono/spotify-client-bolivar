@@ -12,7 +12,7 @@ const BsCenteredContainer: React.FC<IContainerProps> = (
   }
   ) => {
   return (
-    <div className={"mx-auto w-full max-w-screen-lg " + extraClasses}>
+    <div className={"mx-auto w-full max-w-screen-lg p-4" + extraClasses}>
       {children}
     </div>
   );

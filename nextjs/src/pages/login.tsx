@@ -10,6 +10,10 @@ import {
 
 import BodyWrapper from "~/components/BodyWrapper";
 import Head from "next/head";
+import Image from 'next/image';
+
+import LogoBolivar from "@/logo-constructora-bolivar.svg";
+
 
 export default function Login() {
   return (
@@ -24,23 +28,25 @@ export default function Login() {
         <div className='flex w-full justify-center items-center'>
     
             <Card className='p-4 max-w-sm w-11/12 '>
-            <h1 className='h1 text-3xl text-center font-bold mb-6'>Iniciar Sesión</h1>
+                <Image src={LogoBolivar} alt="Constructora Bolivar" className='w-2/3 mx-auto p-8' />
 
-            <div className='py-8'>
-                <Input size="md" placeholder="Email"
-                />
-                <Spacer y={2} />
-                <Input 
-                    size="md"
-                    placeholder="Password"
-                />
-            </div>
+                <h1 className='h1 text-3xl text-center font-bold mb-6'>Iniciar Sesión</h1>
 
-            <div className="flex justify-around">
-                <Checkbox defaultSelected>Remember Me</Checkbox>
-            </div>
-            <Divider className="my-4" />
-            <Button>Sign in</Button>
+                <div className='py-8'>
+                    <Input size="md" placeholder="Email"
+                    />
+                    <Spacer y={2} />
+                    <Input 
+                        size="md"
+                        placeholder="Password"
+                    />
+                </div>
+
+                <div className="flex justify-around">
+                    <Checkbox defaultSelected>Remember Me</Checkbox>
+                </div>
+                <Divider className="my-4" />
+                <Button color='primary' className='!text-white-500'>Sign in</Button>
             </Card>
         </div>
 
