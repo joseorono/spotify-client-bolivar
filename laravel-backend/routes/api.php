@@ -21,6 +21,9 @@ use App\Http\Controllers\searchController;
 |
 */
 
+
+// Auth routes
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
@@ -30,9 +33,14 @@ Route::get('/auth/redirect', function () {
     return Socialite::driver('spotify')->redirect();
 });
 */
+
 Route::get('/auth/redirect', [AuthController::class, 'redirectToProvider']);
 
 Route::get('/spotify-callback', [AuthController::class, 'handleProviderCallback']);
 
+// Search routes
+
 Route::get('/search/track/', [SearchController::class, 'searchTracks']);
+Route::get('/search/artist/', [SearchController::class, 'searchArtists']);
+Route::get('/search/album/', [SearchController::class, 'searchAlbums']);
 
