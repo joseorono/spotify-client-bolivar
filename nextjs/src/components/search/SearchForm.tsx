@@ -33,6 +33,8 @@ export default function SearchForm() {
     const [debouncedValue] = useDebounce(inputValue, 500);
     const [searchType, setSearchType] = useState< Set<SearchTypes> >( new Set(["track"]) );
   
+    // process.env.NEXT_PUBLIC_API_ROOT
+
     const handleInputChange = ( e: React.ChangeEvent<HTMLInputElement> ) => {
       const value = e.target.value;
       console.log("Cambio query de busqueda");
@@ -82,6 +84,12 @@ export default function SearchForm() {
         
 
         <div id="debug_container">
+            <div>
+                <h4>URL Endpoint:</h4>
+                <p>
+                    {process.env.NEXT_PUBLIC_API_ROOT}	
+                </p>
+            </div>
             <p>Debounced Search Query: {debouncedValue}</p>
             <p>Type Value: {searchType}</p>
         </div>

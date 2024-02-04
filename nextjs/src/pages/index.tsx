@@ -11,7 +11,7 @@ export default function Home() {
         <meta name="description" content="Un Cliente de Spotify" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <BodyWrapper hasBackButton={true}>
+      <BodyWrapper hasBackButton={false}>
         <p>
           Pagina de Inicio
         </p>

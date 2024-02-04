@@ -3,6 +3,8 @@ import BodyWrapper from "~/components/BodyWrapper";
 import Head from "next/head";
 import Link from "next/link";
 
+import SearchForm from "~/components/search/SearchForm";
+
 
 export default function Busqueda() {
   return (
@@ -13,9 +15,12 @@ export default function Busqueda() {
             <link rel="icon" href="/favicon.ico" />
         </Head>
       <BodyWrapper hasBackButton={true}>
-        <p>
+        <h1>
           Pagina de Busqueda
-        </p>
+        </h1>
+
+        <SearchForm />
+
       </BodyWrapper>
     </>
   );
