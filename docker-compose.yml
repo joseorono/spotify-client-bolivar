@@ -1,0 +1,38 @@
+version: '3'
+services:
+  db:
+    container_name: db_${APP_NAME}
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    restart: "no"
+    environment:
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+      MYSQL_DATABASE: "${DB_NAME}"
+      MYSQL_USER: "${DB_USER}"
+      MYSQL_PASSWORD: "${DB_PASSWORD}"
+    ports:
+      - '3306:3306'
+    volumes:
+      - db_data:/var/lib/mysql
+
+  nextjs:
+    container_name: nextjs_${APP_NAME}
+    build:
+      context: .
+      dockerfile: ./docker/nextjs/Dockerfile
+      target: ${ENVIRONMENT}
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true
+    volumes:
+      - ./nextjs:/app:rw
+      - /app/node_modules
+      - /app/.next
+
+
+
+volumes:
+  db_data: {}
